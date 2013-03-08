@@ -1,0 +1,62 @@
+Assignment 1 - Berkeley i290 - Spring 2013
+Alec Hanefeld
+
+
+The Center for Responsive Politics is an nonprofit organization that aims to inform citizens about how money influences politics. On their website www.opensecrets.com they provide an API to request data on campaign contributions.
+Data can be requested for individual members of the current government as well as for over 2000 candidates of the present and the past. For each candidate (members are of course a subset of the candidates) there is a internal ID that can be looked up in a provided CSV. With that ID and with a specific cycle (year) five different data sets can be queried. 
+The method "candSummary" provides basic information about a candidate like party, state, chamber, when he was elected, the receipts reported as well as the the expenditures reported.
+The method "candContrib" returns an array of the ten highest individual contributions, along with the donors name and the amount.
+The method "candIndustry" returns an array of the ten industries (ie. "Computers/Internet") from which a candidate has received the most donations, along with a total amount and the amount which came from individuals and PACs.
+The method "candSector" is very similar to "candIndustry" but returns sectors instead, which are groups of industries. It also doesn't seem to be limited to the highest ten contributors, but shows all sectors that contributed.
+The method "candIndByInd" takes another argument, an industry code, and returns information about the donations form said industry.
+There are also the methods "memPDFprofile" which returns the information from a members personal finance disclosure statement and the method "congCmteIndus" which returns data on the members of a specific committee  but I will focus on the "cand*" methods for the remainder of the assignment.
+The biggest limitation is definitively the fact that the "candContrib" and the "candIndustry" methods only return the ten highest entities. This might be enough for analysis of candidates, but completely prohibits the analysis of individual contributors or industries.
+As 'interesting' one might consider the data sets of famous politicians or politicians that are secretaries in the current government. For example the "candIndustry" data set of Secretary of State John Kerry, accessed with the provided Python library looks as follows:
+[{u'@attributes': {u'indivs': u'701523',
+   u'industry_name': u'Lawyers/Law Firms',
+   u'pacs': u'126278',
+   u'total': u'827801'}},
+ {u'@attributes': {u'indivs': u'442800',
+   u'industry_name': u'Securities & Investment',
+   u'pacs': u'37500',
+   u'total': u'480300'}},
+ {u'@attributes': {u'indivs': u'292474',
+   u'industry_name': u'Real Estate',
+   u'pacs': u'41010',
+   u'total': u'333484'}},
+ {u'@attributes': {u'indivs': u'232593',
+   u'industry_name': u'Lobbyists',
+   u'pacs': u'5000',
+   u'total': u'237593'}},
+ {u'@attributes': {u'indivs': u'90150',
+   u'industry_name': u'Health Professionals',
+   u'pacs': u'125300',
+   u'total': u'215450'}},
+ {u'@attributes': {u'indivs': u'182900',
+   u'industry_name': u'Business Services',
+   u'pacs': u'3500',
+   u'total': u'186400'}},
+ {u'@attributes': {u'indivs': u'146250',
+   u'industry_name': u'Hospitals/Nursing Homes',
+   u'pacs': u'26500',
+   u'total': u'172750'}},
+ {u'@attributes': {u'indivs': u'71580',
+   u'industry_name': u'Pharmaceuticals/Health Products',
+   u'pacs': u'97100',
+   u'total': u'168680'}},
+ {u'@attributes': {u'indivs': u'92400',
+   u'industry_name': u'Computers/Internet',
+   u'pacs': u'65996',
+   u'total': u'158396'}},
+ {u'@attributes': {u'indivs': u'141032',
+   u'industry_name': u'Retired',
+   u'pacs': u'0',
+   u'total': u'141032'}}]
+
+It becomes clear that by far the biggest share of contributions is coming from lawyers and law firms, for which the reason might be that Kerry himself is a lawyer.
+
+After scraping all the data on the members of the current House and Senate one might be able to answer a number of interesting questions:
+- Are certain industries inclined to donate more to a certain party?
+- What are possible classifications for politicians in regards to their contributions sources?
+After scraping data of specific members throughout different cycles, one could ask:
+- When was a member most "popular" with contributors? Is there a constant upwards trend, or are members peaking at some point of their political career?
