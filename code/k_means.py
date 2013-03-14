@@ -10,26 +10,41 @@ k = 2 # number of clusters
 # Helper functions
 # Fill in TODOs where needed
 ##/
+import random
 
 def pick_centroids(xs, num):
     """Return list of num centroids given a list of numbers in xs"""
     ###
     # TODO select and return centroids
-    return [1,2]
+    selection = []
+    while num > 0:
+        centroid = xs.pop(random.randint(0,len(xs)))
+        selection.append(centroid)
+        num -= 1
+    return selection
     ##/
 
 def distance(a, b):
     """Return the distance of numbers a and b"""
     ###
     # TODO return correct expression
-    return 0
+    return abs(a-b)
     ##/
 
 def centroid(xs):
     """Return the centroid number given a list of numbers, xs"""
     ###
     # TODO calculate and return centroid
-    return 0
+    avg_distances = []
+    for x in xs:
+        cum_dist = 0
+        for y in xs:
+            cum_dist += distance(x, y)
+        ### divide by len(xs)-1 as we dont want to count the distance for the case where x === y
+        avg_distances.append(cum_dist/(len(xs)-1))
+    dist_point_tuples = zip(avg_distances, xs)
+    return min(dist_point_tuples)[1]
+        
     ##/
 
 def cluster(xs, centroids):
